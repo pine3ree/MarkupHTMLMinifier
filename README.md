@@ -16,3 +16,6 @@ Minify html, inline css and js using code.google.com/p/minify/
     before the other conditions in your pw .htaccess file
 
 - Install this module using PW admin interface
+
+- Now you should see generated html source minified. Note: this also remove the
+  horizontal 4px margin in your inline lists, so update your styles if needed.

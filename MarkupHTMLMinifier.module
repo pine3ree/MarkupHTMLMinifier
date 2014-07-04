@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * MinifyOutput
+ *
+ * Minify html and inline css / js using code.google.com/p/minify/
+ *
+ * @author maks feltrin - pine3ree <pine3ree(AT)gmail(DOT)com>
+ */
+
+class MarkupHTMLMinifier extends WireData implements Module
+{
+    public static function getModuleInfo()
+    {
+        return array(
+            'title'    => 'Markup HTML Minifier',
+            'version'  => 10,
+            'summary'  => 'Minify html, inline css and js using code.google.com/p/minify/',
+            'author'   => 'pine3ree',
+            'href'     => 'https://github.com/pine3ree/MarkupHTMLMinifier',
+            'singular' => true,
+            'autoload' => true,
+        );
+    }
+
+    public function ready()
+    {
+        $this->addHookAfter('Page::render', $this, 'hook_after_Page_render');
+    }
+
+    public function hook_after_Page_render($event)
+    {
+        $page = $event->object;
+
+        if ($page->template == 'admin') return;
+
+        $event->return = Minify_HTML::minify($event->return, array(
+            'cssMinifier' => array('Minify_CSS_Compressor', 'process'),
+            'jsMinifier' => array('JSMin', 'minify'),
+        ));
+    }
+}

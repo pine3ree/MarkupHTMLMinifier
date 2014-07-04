@@ -13,6 +13,6 @@ Minify html, inline css and js using code.google.com/p/minify/
     ```
     RewriteCond %{REQUEST_URI} (^|/)vendor/.*$ [OR]
     ```
-    before the other condition in your pw .htaccess file
+    before the other conditions in your pw .htaccess file
 
 - Install this module using PW admin interface

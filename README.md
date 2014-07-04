@@ -11,7 +11,7 @@ Minify html, inline css and js using code.google.com/p/minify/
 
 - optional but recommended: protect your vendor directory from web access, add
     ```
-    RewriteCond %{REQUEST_URI} (^|/)vendor/.*$ [OR]
+    RewriteCond %{REQUEST_URI} ^/vendor/.*$ [OR]
     ```
     before the other conditions in your pw .htaccess file
 

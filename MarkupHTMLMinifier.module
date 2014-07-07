@@ -32,7 +32,7 @@ class MarkupHTMLMinifier extends WireData implements Module
     {
         $page = $event->object;
 
-        if ($page->template == 'admin') return;
+        if ($page->template == 'admin' || $page->disableHTMLMinifier) return;
 
         $event->return = Minify_HTML::minify($event->return, array(
             'cssMinifier' => array('Minify_CSS_Compressor', 'process'),

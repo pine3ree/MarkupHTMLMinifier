@@ -14,21 +14,24 @@ class MarkupHTMLMinifier extends WireData implements Module
     {
         return array(
             'title'    => 'Markup HTML Minifier',
-            'version'  => 10,
+            'version'  => 11,
             'summary'  => 'Minify html, inline css and js using code.google.com/p/minify/',
             'author'   => 'pine3ree',
             'href'     => 'https://github.com/pine3ree/MarkupHTMLMinifier',
             'singular' => true,
-            'autoload' => true,
+            'autoload' => function () {
+                $page = wire('page');
+                return !($page instanceof Page && $page->template == 'admin');
+            },
         );
     }
 
     public function ready()
     {
-        $this->addHookAfter('Page::render', $this, 'hook_after_Page_render');
+        $this->addHookAfter('Page::render', $this, 'onAfterPageRender');
     }
 
-    public function hook_after_Page_render($event)
+    public function onAfterPageRender($event)
     {
         $page = $event->object;
 
